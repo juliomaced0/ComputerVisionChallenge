@@ -4,11 +4,12 @@ import numpy as np
 cap = cv.VideoCapture(0)
 width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
-writer = cv.VideoWriter('color_detection_video.mp4', cv.VideoWriter_fourcc(*'mp4v'), 20, (width, height))
+writer = cv.VideoWriter('color_detection_video.mp4', cv.VideoWriter_fourcc(*'mp4v'), 10, (width, height))
 
 while True:
     _, img = cap.read()
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    hsv = cv.medianBlur(hsv, 7)
 
     L_limit = np.array([98, 50, 50])
     U_limit = np.array([139, 255, 255])
